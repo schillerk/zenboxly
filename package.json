@@ -5,10 +5,14 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.3",
+    "node-sass": "^4.9.2",
+    "nodemon": "^1.18.3",
     "password-generator": "^2.2.0"
   },
   "scripts": {
     "start": "node index.js",
-    "heroku-postbuild": "cd client && yarn && yarn run build"
+    "heroku-postbuild": "cd client && yarn && yarn run build",
+    "build-css": "node-sass --include-path scss client/src/App.scss client/src/App.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
   }
 }
