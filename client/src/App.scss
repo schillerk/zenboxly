@@ -1,31 +1,81 @@
-.App {
-  text-align: center;
-  font-family: "Courier New", monospace;
-  width: 100%;
+* {
+  box-sizing: border-box;
+  font-size: 14px;
 }
 
-h1 {
-  font-weight: normal;
-  font-size: 42px;
-}
-
-.passwords {
-  list-style: none;
-  padding: 0;
-  font-size: 32px;
-  margin-bottom: 2em;
-}
-
-.more {
-  font-size: 32px;
-  font-family: "Courier New", monospace;
-  border: 2px solid #000;
-  background-color: #fff;
-  padding: 10px 25px;
-  &:hover {
-    background-color: red;
+.card-wrap {
+  width: 150px;
+  height: 200px;
+  border: 1px solid black;
+  display: inline-block;
+  margin-left: 8px;
+  &__value {
+    font-size: 18px;
   }
-  &:active {
-    background-color: #FFEFA9;
+
+  &__icon {
+    &--black {
+      color: black;
+    }
+    &--red {
+      color: red;
+    }
+  }
+}
+
+@mixin border-radius() {
+  border-radius: 2px;
+}
+
+// .card {
+//   @include border-radius;
+//   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+// }
+
+.row {
+  display: inline-flex;
+  width: 100%;
+  flex-wrap: wrap;
+
+  &__right {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  &--spaced {
+    & > * {
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.text-input {
+  @include border-radius;
+  height: 36px;
+  padding-left: 8px;
+  border: 1px solid rgba(0,0,0,.25);
+  text-overflow: ellipsis;
+  transition: .3s ease-out;
+  outline: none;
+  &:hover,
+  &:focus {
+    border: 1px solid rgba(64, 170, 240, .7);
+  }
+  &:focus {
+    box-shadow: 0 0 5px rgba(64, 170, 240, .7);
+  }
+}
+
+.button {
+  @include border-radius;
+  height: 36px;
+  text-transform: uppercase;
+  transition: .3s box-shadow ease-out;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14), 0 1px 7px 0 rgba(0,0,0,0.12), 0 3px 1px -1px rgba(0,0,0,0.2);
   }
 }
