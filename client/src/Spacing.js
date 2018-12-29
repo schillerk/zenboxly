@@ -1,10 +1,10 @@
 import React from 'react';
 
-const parseSpacing = (val) => typeof val === "number" ? `${val || 0}px` : val || '0';
-
 export const Padding = (props) => <Spacing property="padding" {...props} />
 
 export const Margin = (props) => <Spacing property="margin" {...props} />
+
+const parseSpacing = (val) => typeof val === "number" ? `${val || 0}px` : val || '0';
 
 const Spacing = ({
   children,
@@ -25,7 +25,7 @@ const Spacing = ({
   `;
 
   return (
-    <div style={{[property]: padding}}>
+    <div className="spacing" style={{[property]: padding}}>
       {children}
     </div>
   );

@@ -1,137 +1,73 @@
 import React, { Component } from 'react';
 import './App.css';
 
-function shuffle(a) {
-  for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+import { TextInput } from './TextInput';
+import { Col } from './Col';
+import { Row, SpacedRow } from './Row';
+import { Card } from './Card';
+import { Padding, Margin } from './Spacing';
 
-const CARD_SUITS = [
-      "Spades",
-      "Hearts",
-      "Diamonds",
-      "Clubs"
-    ];
-
-const CARD_VALUES = [
-  2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"
-];
-
-const VALUE_MAP = {
-  "J": 11,
-  'Q': 12,
-  'K': 13,
-  'A': 1,
-};
-
-const ICON_MAP = {
-  "Spades": 'S',
-  "Hearts": 'H',
-  "Diamonds": 'D',
-  "Clubs": 'C',
-};
-
-const COLOR_MAP = {
-  "Spades": 'black',
-  "Hearts": 'red',
-  "Diamonds": 'red',
-  "Clubs": 'black',
-};
-
-const HAND_SIZE = 5;
+const parseInput = (input) => input ? input : 'blank';
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      deck: this.generateDeck(),
-      hand: [],
-      index: 0,
+      input: '',
+      cards: ['Books', 'Films', 'Articles', 'Talks', 'Papers'],
     };
 
-    this.dealCards = this.dealCards.bind(this);
+    this.updateInput = this.updateInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  generateDeck(remainingCards = []) {
-    const deck = [];
-    CARD_SUITS.forEach(suit => {
-      CARD_VALUES.forEach(value => {
-        deck.push({
-          suit: suit,
-          value: value,
-        });
-      })
-    })
-
-    const newDeck = deck.filter(card => {
-      return !remainingCards.some(el =>
-        el.suit === card.suit && el.value === card.value);
-    });
-
-    return shuffle(newDeck);
-  }
-
-  dealCards() {
-    this.setState(({index, deck, hand}) => {
-      const deckSize = CARD_SUITS.length * CARD_VALUES.length;
-      if (index >= deckSize - HAND_SIZE) {
-        const remainingCards = deck.slice(index, deckSize);
-        const newDeck = this.generateDeck(remainingCards);
-        const newIndex = HAND_SIZE - remainingCards.length;
-        const newCards = newDeck.slice(0, newIndex);
-        return {
-          deck: newDeck,
-          hand: [...remainingCards, ...newCards],
-          index: newIndex,
-        }
-      } else {
-        return {
-          hand: deck.slice(index, index + HAND_SIZE),
-          index: index + HAND_SIZE,
-        };
-      }
+  updateInput(e) {
+    this.setState({
+      input: e.target.value,
     });
   }
 
-  renderCard({value, suit}) {
-    const num = typeof value === typeof '' ? VALUE_MAP[value] : value;
-    const icons = new Array(num).fill(0).map(icon => {
-      const colorClass = `card-wrap__icon--${COLOR_MAP[suit]}`;
-      return (
-        <span className={colorClass}>
-          {ICON_MAP[suit]}
-        </span>
-      );
-    });
-
-    return (
-      <div className="card-wrap">
-        <div className="card-wrap__value">
-          {value}
-        </div>
-        {icons}
-      </div>
-    )
+  renderCards() {
+    return this.state.cards.map(card => 
+      <Col size={3} sides="8px" ends="8px">
+        <Card>
+          <Padding all="16px">
+            {card}
+          </Padding>
+        </Card>
+      </Col>
+    );
   }
 
-  renderHand() {
-    return this.state.hand.map(card => this.renderCard(card));
+  handleSubmit(e) {
+    e.preventDefault();
+    this.setState(({ cards, input }) => ({
+      input: '',
+      cards: [...cards, parseInput(input)],
+    }))
   }
 
   render() {
+    const { input } = this.state;
     return (
-      <div>
-        <button
-          onClick={this.dealCards}
+      <span>
+      <Margin all="16px" bottom="8px">
+        <form
+          onSubmit={this.handleSubmit}
         >
-          Deal Some Cards
-        </button>
-        {this.renderHand()}
-      </div>
+          <TextInput
+            value={input}
+            onChange={this.updateInput}
+          />
+        </form>
+      </Margin>
+      <Margin all="8px">
+        <Row>
+          {this.renderCards()}
+        </Row>
+      </Margin>
+      </span>
     );
   }
 }

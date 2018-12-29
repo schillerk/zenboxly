@@ -2,18 +2,9 @@
   box-sizing: border-box;
   font-size: 14px; }
 
-.card-wrap {
-  width: 150px;
-  height: 200px;
-  border: 1px solid black;
-  display: inline-block;
-  margin-left: 8px; }
-  .card-wrap__value {
-    font-size: 18px; }
-  .card-wrap__icon--black {
-    color: black; }
-  .card-wrap__icon--red {
-    color: red; }
+.card {
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
 
 .row {
   display: inline-flex;

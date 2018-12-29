@@ -3,34 +3,18 @@
   font-size: 14px;
 }
 
-.card-wrap {
-  width: 150px;
-  height: 200px;
-  border: 1px solid black;
-  display: inline-block;
-  margin-left: 8px;
-  &__value {
-    font-size: 18px;
-  }
-
-  &__icon {
-    &--black {
-      color: black;
-    }
-    &--red {
-      color: red;
-    }
-  }
-}
-
 @mixin border-radius() {
   border-radius: 2px;
 }
 
-// .card {
-//   @include border-radius;
-//   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-// }
+.spacing {
+
+}
+
+.card {
+  @include border-radius;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
 
 .row {
   display: inline-flex;
